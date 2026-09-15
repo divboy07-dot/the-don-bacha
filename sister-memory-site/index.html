@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Chotii Bachiii 💖</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti Library CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            overflow-x: hidden;
+        }
+
+        .font-playful {
+            font-family: 'Fredoka', cursive;
+        }
+
+        .font-marker {
+            font-family: 'Permanent Marker', cursive;
+        }
+
+        /* Floating background shapes animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(8deg); }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float 5s ease-in-out 1.5s infinite;
+        }
+
+        /* Pulse heartbeat animation */
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.4)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(244, 114, 182, 0.8)); }
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 2.5s ease-in-out infinite;
+        }
+
+        /* Flip Card Effect */
+        .perspective {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+        .flipped {
+            transform: rotateY(180deg);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Polaroid Polaroid Tape/Pin Style */
+        .polaroid-tape {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(3px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Custom Emoji Cursor Effect */
+        .emoji-trail {
+            position: fixed;
+            pointer-events: none;
+            font-size: 20px;
+            z-index: 9999;
+            animation: fadeAndRise 1s forwards ease-out;
+        }
+
+        @keyframes fadeAndRise {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-30px) scale(1.5); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fdf2f8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f472b6;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ec4899;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 text-slate-800 min-h-screen relative selection:bg-pink-300 selection:text-pink-900">
+
+    <!-- Floating Background Decor -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-10 left-8 text-4xl animate-float opacity-30">💖</div>
+        <div class="absolute top-1/4 right-10 text-5xl animate-float-delayed opacity-30">🤪</div>
+        <div class="absolute top-2/3 left-12 text-5xl animate-float opacity-30">🍕</div>
+        <div class="absolute bottom-10 right-16 text-4xl animate-float-delayed opacity-30">✨</div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-200/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-200/30 rounded-full blur-3xl pointer-events-none"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/70 border-b border-pink-100/50 shadow-sm transition-all duration-300">
+        <div class="max-w-6xl mx-mx-auto px-4 py-3 flex items-center justify-between mx-auto">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="triggerConfetti()">
+                <span class="text-2xl font-playful font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+                    For My Chotii Bachiii 👑
+                </span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold text-slate-600">
+                <a href="#hero" class="hover:text-pink-500 transition-colors">Home</a>
+                <a href="#thanks" class="hover:text-pink-500 transition-colors">Thank Yous</a>
+                <a href="#memories" class="hover:text-pink-500 transition-colors">Memories</a>
+                <a href="#got-your-back" class="hover:text-pink-500 transition-colors">I Got You</a>
+                <a href="#quiz" class="hover:text-pink-500 transition-colors">Sibling Test</a>
+            </nav>
+            <button onclick="triggerConfetti()" class="px-4 py-2 bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500 text-white font-bold rounded-full text-xs shadow-md hover:shadow-lg transition transform active:scale-95 flex items-center gap-2">
+                <span>Celebrate Her</span> <i class="fa-solid font-bold fa-sparkles"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="relative z-10 space-y-24 pb-20">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-h-[85vh] flex flex-col items-center justify-center text-center px-4 pt-10">
+            <div class="inline-block mb-4 px-4 py-1.5 bg-pink-100 border border-pink-200 rounded-full text-pink-600 font-bold text-xs uppercase tracking-widest animate-bounce">
+                A little corner made with love for my bachii 💖
+            </div>
+            
+            <h1 class="text-4xl md:text-7xl font-playful font-bold tracking-tight text-slate-800 max-w-4xl leading-tight">
+                To My Favorite <br>
+                <span class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent underline decoration-wavy decoration-pink-300">
+                    Chotii Bachiii 💖
+                </span>
+            </h1>
+
+            <p class="mt-6 text-slate-600 max-w-xl text-base md:text-lg font-medium">
+                Life would feel a little less special without your smile, your talks, your cute drama, and all the little memories we keep making together.
+            </p>
+
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#thanks" class="px-8 py-3.5 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-pink-300/50 hover:-translate-y-1 transition-all duration-200">
+                    Open My Little Thank Yous 💌
+                </a>
+                <a href="#got-your-back" class="px-8 py-3.5 bg-white border-2 border-pink-300 text-pink-600 font-bold rounded-2xl shadow-sm hover:bg-pink-50 hover:-translate-y-1 transition-all duration-200">
+                    My Promise To You 🤝
+                </a>
+            </div>
+
+            <!-- Quick Stats/Badges -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl w-full">
+                <div class="p-4 bg-white/60 backdrop-blur rounded-2xl border border-pink-100 shadow-sm text-center">
+                    <span class="text-2xl font-bold text-pink-500 font-playful">100%</span>
+                    <p class="text-xs text-slate-500 mt-1 font-semibold">Cute Talks</p>
+                </div>
+                <div class="p-4 bg-white/60 backdrop-blur rounded-2xl border border-purple-100 shadow-sm text-center">
+                    <span class="text-2xl font-bold text-purple-500 font-playful">∞</span>
+                    <p class="text-xs text-slate-500 mt-1 font-semibold">Always My Bachii</p>
+                </div>
+                <div class="p-4 bg-white/60 backdrop-blur rounded-2xl border border-indigo-100 shadow-sm text-center">
+                    <span class="text-2xl font-bold text-indigo-500 font-playful">100%</span>
+                    <p class="text-xs text-slate-500 mt-1 font-semibold">Memories Made</p>
+                </div>
+                <div class="p-4 bg-white/60 backdrop-blur rounded-2xl border border-emerald-100 shadow-sm text-center">
+                    <span class="text-2xl font-bold text-emerald-500 font-playful">∞</span>
+                    <p class="text-xs text-slate-500 mt-1 font-semibold">Bhaichara Forever</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE THANK YOU SECTION -->
+        <section id="thanks" class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-playful font-bold text-slate-800">
+                    Little Things I Love About You 🎁
+                </h2>
+                <p class="text-slate-500 mt-2">Tap any card — there is a little message waiting for you.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Flip Card 1 -->
+                <div class="perspective h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="transform-style-3d relative w-full h-full duration-500">
+                        <!-- Front -->
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border-2 border-pink-200 shadow-md flex flex-col justify-between backface-hidden">
+                            <div class="text-4xl">🗣️</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 font-playful">For Being Your Own Little Person</h3>
+                                <p class="text-slate-500 text-sm mt-2">You have your own thoughts, your own choices, and your own adorable way of doing things.</p>
+                            </div>
+                            <span class="text-xs font-bold text-pink-400 flex items-center gap-1">Click to reveal <i class="fa-solid fa-arrow-rotate-right"></i></span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-pink-500 to-purple-600 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between rotate-y-180 backface-hidden">
+                            <div class="text-3xl">🤫</div>
+                            <div>
+                                <h3 class="text-lg font-bold font-playful">The Real Truth:</h3>
+                                <p class="text-sm mt-2 opacity-95">I love the way you are. Keep smiling, keep growing, and always stay true to yourself.</p>
+                            </div>
+                            <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full w-fit">Loved anyway ❤️</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 2 -->
+                <div class="perspective h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="transform-style-3d relative w-full h-full duration-500">
+                        <!-- Front -->
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border-2 border-purple-200 shadow-md flex flex-col justify-between backface-hidden">
+                            <div class="text-4xl">🤼</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 font-playful">For Annoyance ∞</h3>
+                                <p class="text-slate-500 text-sm mt-2">Even an ordinary day becomes memorable when you are around.</p>
+                            </div>
+                            <span class="text-xs font-bold text-purple-400 flex items-center gap-1">Click to reveal <i class="fa-solid fa-arrow-rotate-right"></i></span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-indigo-600 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between rotate-y-180 backface-hidden">
+                            <div class="text-3xl">✨</div>
+                            <div>
+                                <h3 class="text-lg font-bold font-playful">The Real Truth:</h3>
+                                <p class="text-sm mt-2 opacity-95">Your presence makes everything brighter. Thank you for bringing so much happiness into my life.</p>
+                            </div>
+                            <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full w-fit">My Favorite Person ✨</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 3 -->
+                <div class="perspective h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="transform-style-3d relative w-full h-full duration-500">
+                        <!-- Front -->
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border-2 border-indigo-200 shadow-md flex flex-col justify-between backface-hidden">
+                            <div class="text-4xl">🍕</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 font-playful">For Sharing Little Moments</h3>
+                                <p class="text-slate-500 text-sm mt-2">From tiny talks to big memories, every moment with you is special.</p>
+                            </div>
+                            <span class="text-xs font-bold text-indigo-400 flex items-center gap-1">Click to reveal <i class="fa-solid fa-arrow-rotate-right"></i></span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between rotate-y-180 backface-hidden">
+                            <div class="text-3xl">🛍️</div>
+                            <div>
+                                <h3 class="text-lg font-bold font-playful">The Real Truth:</h3>
+                                <p class="text-sm mt-2 opacity-95">Whatever happens, you will always have a special place in my heart.</p>
+                            </div>
+                            <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full w-fit">My Forever Team 🤝</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 4 -->
+                <div class="perspective h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="transform-style-3d relative w-full h-full duration-500">
+                        <!-- Front -->
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border-2 border-amber-200 shadow-md flex flex-col justify-between backface-hidden">
+                            <div class="text-4xl">👑</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 font-playful">For Your Cute Little Drama</h3>
+                                <p class="text-slate-500 text-sm mt-2">Your expressions, stories, and little reactions make life so much more fun.</p>
+                            </div>
+                            <span class="text-xs font-bold text-amber-500 flex items-center gap-1">Click to reveal <i class="fa-solid fa-arrow-rotate-right"></i></span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-amber-500 to-pink-500 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between rotate-y-180 backface-hidden">
+                            <div class="text-3xl">🎭</div>
+                            <div>
+                                <h3 class="text-lg font-bold font-playful">The Real Truth:</h3>
+                                <p class="text-sm mt-2 opacity-95">Never change the beautiful person you are. Your smile and your heart are precious.</p>
+                            </div>
+                            <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full w-fit">Our Little Star 🌟</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 5 -->
+                <div class="perspective h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="transform-style-3d relative w-full h-full duration-500">
+                        <!-- Front -->
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border-2 border-emerald-200 shadow-md flex flex-col justify-between backface-hidden">
+                            <div class="text-4xl">🤐</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 font-playful">For Being Someone I Trust</h3>
+                                <p class="text-slate-500 text-sm mt-2">For all the talks, memories, and little things we share.</p>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-500 flex items-center gap-1">Click to reveal <i class="fa-solid fa-arrow-rotate-right"></i></span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between rotate-y-180 backface-hidden">
+                            <div class="text-3xl">🔐</div>
+                            <div>
+                                <h3 class="text-lg font-bold font-playful">The Real Truth:</h3>
+                                <p class="text-sm mt-2 opacity-95">You matter to me more than you know. I am always here to listen and support you.</p>
+                            </div>
+                            <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full w-fit">Always My Safe Place 🔐</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 6 -->
+                <div class="perspective h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="transform-style-3d relative w-full h-full duration-500">
+                        <!-- Front -->
+                        <div class="absolute inset-0 bg-white rounded-3xl p-6 border-2 border-rose-200 shadow-md flex flex-col justify-between backface-hidden">
+                            <div class="text-4xl">🐣</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 font-playful">For Being My Chotii Bachiii</h3>
+                                <p class="text-slate-500 text-sm mt-2">From childhood memories to all the moments still waiting for us — I am lucky to have you.</p>
+                            </div>
+                            <span class="text-xs font-bold text-rose-400 flex items-center gap-1">Click to reveal <i class="fa-solid fa-arrow-rotate-right"></i></span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-rose-400 to-red-500 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between rotate-y-180 backface-hidden">
+                            <div class="text-3xl">💎</div>
+                            <div>
+                                <h3 class="text-lg font-bold font-playful">The Real Truth:</h3>
+                                <p class="text-sm mt-2 opacity-95">No matter how much time passes, you will always be my little sister and my favorite bachii.</p>
+                            </div>
+                            <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full w-fit">Best Bachii Ever 💖</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEMORY LANE PHOTO SECTION (4 Polaroid Photos) -->
+        <section id="memories" class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-pink-500 font-bold text-xs uppercase tracking-widest bg-pink-100 px-3 py-1 rounded-full">Scrapbook</span>
+                <h2 class="text-3xl md:text-5xl font-playful font-bold text-slate-800 mt-2">
+                    Memory Lane 📸
+                </h2>
+                <p class="text-slate-500 mt-1">A few of our favorite memories — tap a photo to see it properly.</p>
+            </div>
+
+            <!-- Polaroid Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Polaroid 1 -->
+                <div onclick="openLightbox('assets/memory-1.jpeg', 'Partners in Crime', 'A memory I will always keep close.')" 
+                     class="group bg-white p-4 pt-5 pb-8 shadow-xl rounded-sm border border-slate-100 transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer relative">
+                    <!-- Tape element -->
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 polaroid-tape rotate-1 border-t border-b border-white/80 z-10"></div>
+                    <div class="overflow-hidden bg-slate-100 aspect-square rounded-sm">
+                        <img src="assets/memory-1.jpeg" 
+                             alt="Partners in Crime" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-marker text-slate-700 text-lg">Our Little World 💖</p>
+                        <p class="text-xs text-slate-400 mt-1">Plotting trouble since day one</p>
+                    </div>
+                </div>
+
+                <!-- Polaroid 2 -->
+                <div onclick="openLightbox('assets/memory-2.jpeg', 'Master of Nagging', 'Always having something to say!')" 
+                     class="group bg-white p-4 pt-5 pb-8 shadow-xl rounded-sm border border-slate-100 transform rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer relative">
+                    <!-- Tape element -->
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 polaroid-tape -rotate-2 border-t border-b border-white/80 z-10"></div>
+                    <div class="overflow-hidden bg-slate-100 aspect-square rounded-sm">
+                        <img src="assets/memory-2.jpeg" 
+                             alt="Master of Nagging" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-marker text-slate-700 text-lg">Little Smiles ✨</p>
+                        <p class="text-xs text-slate-400 mt-1">Every smile has a story.</p>
+                    </div>
+                </div>
+
+                <!-- Polaroid 3 -->
+                <div onclick="openLightbox('assets/memory-3.jpeg', 'The Rare Smile', 'Proof we actually get along sometimes.')" 
+                     class="group bg-white p-4 pt-5 pb-8 shadow-xl rounded-sm border border-slate-100 transform -rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer relative">
+                    <!-- Tape element -->
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 polaroid-tape rotate-3 border-t border-b border-white/80 z-10"></div>
+                    <div class="overflow-hidden bg-slate-100 aspect-square rounded-sm">
+                        <img src="assets/memory-3.jpeg" 
+                             alt="The Rare Smile" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-marker text-slate-700 text-lg">Old Memories, Same Bond 🫶</p>
+                        <p class="text-xs text-slate-400 mt-1">Growing up together, one memory at a time.</p>
+                    </div>
+                </div>
+
+                <!-- Polaroid 4 -->
+                <div onclick="openLightbox('assets/memory-4.jpeg', 'Always Got Your Back', 'Through thick and thin, no matter what.')" 
+                     class="group bg-white p-4 pt-5 pb-8 shadow-xl rounded-sm border border-slate-100 transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer relative">
+                    <!-- Tape element -->
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 polaroid-tape -rotate-1 border-t border-b border-white/80 z-10"></div>
+                    <div class="overflow-hidden bg-slate-100 aspect-square rounded-sm">
+                        <img src="assets/memory-4.jpeg" 
+                             alt="Always Got Your Back" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-marker text-slate-700 text-lg">Always By Your Side 🛡️</p>
+                        <p class="text-xs text-slate-400 mt-1">No matter what, I am here.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- "I GOT YOUR BACK" REASSURANCE & PROMISE SECTION -->
+        <section id="got-your-back" class="max-w-4xl mx-auto px-4">
+            <div class="relative bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 rounded-3xl p-8 md:p-12 text-white shadow-2xl overflow-hidden text-center animate-pulse-glow">
+                
+                <!-- Background heart shapes -->
+                <div class="absolute -right-10 -bottom-10 text-9xl opacity-10 pointer-events-none">💖</div>
+                <div class="absolute -left-10 -top-10 text-9xl opacity-10 pointer-events-none">🛡️</div>
+
+                <span class="inline-block px-4 py-1 bg-white/20 backdrop-blur rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                    The Ultimate Sibling Contract 📜
+                </span>
+
+                <h2 class="text-3xl md:text-5xl font-playful font-bold leading-tight">
+                    "Even when life feels difficult... <br>
+                    <span class="text-yellow-300 underline decoration-wavy">I will ALWAYS stand by you.</span>"
+                </h2>
+
+                <p class="mt-6 text-pink-100 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+                    We may have our little arguments and different opinions, but one thing will never change: you never have to face anything alone. I will always listen, support you, and remind you how special you are.
+                </p>
+
+                <!-- Interactive Promise Button -->
+                <div class="mt-8 flex flex-col items-center gap-4">
+                    <button id="promiseBtn" onclick="triggerPromise()" 
+                            class="px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-extrabold text-lg rounded-full shadow-lg hover:shadow-yellow-400/50 transform hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-3">
+                        <span>Seal Our Bhaichara 🤝</span>
+                        <span class="text-2xl">🤝</span>
+                    </button>
+                    
+                    <!-- Dynamic Virtual Hug Badge Container -->
+                    <div id="badgeContainer" class="hidden mt-4 p-4 bg-white/20 backdrop-blur border border-white/30 rounded-2xl animate-bounce">
+                        <p class="font-bold text-yellow-200 text-lg">🏆 "BHAICHARA PROMISE ACTIVATED!" 🛡️</p>
+                        <p class="text-xs text-white/90">A big virtual hug for my bachii. I am always here for you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIBLING ANNOYANCE QUIZ / GAUGE SECTION -->
+        <section id="quiz" class="max-w-3xl mx-auto px-4">
+            <div class="bg-white rounded-3xl p-8 border-2 border-pink-100 shadow-xl">
+                <div class="text-center mb-8">
+                    <span class="text-2xl">📊</span>
+                    <h2 class="text-3xl font-playful font-bold text-slate-800 mt-1">
+                        How Much Do I Love My Bachii Today?
+                    </h2>
+                    <p class="text-slate-500 text-sm">Take the official Bachii Meter Test!</p>
+                </div>
+
+                <form id="annoyanceForm" onsubmit="calculateAnnoyance(event)" class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-slate-700 text-sm">1. How many times did you ignore advice today?</label>
+                        <select id="q1" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                            <option value="10">Didn't hear it (I was wearing headphones)</option>
+                            <option value="25">Heard it, immediately did the opposite</option>
+                            <option value="40">nodded along and then completely ignored it</option>
+                        </select>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-slate-700 text-sm">2. Did you steal any clothes/snacks today?</label>
+                        <select id="q2" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                            <option value="15">Just a tiny snack (or jacket)</option>
+                            <option value="30">I claimed half your room as mine</option>
+                            <option value="5">Not yet... but the night is young</option>
+                        </select>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold text-slate-700 text-sm">3. Sibling mood right now:</label>
+                        <select id="q3" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                            <option value="30">Ready to start drama</option>
+                            <option value="20">Sass master supreme</option>
+                            <option value="10">Sweet angel (rare state)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-bold rounded-xl shadow-md transition transform active:scale-98">
+                        Calculate Love Score 💖
+                    </button>
+                </form>
+
+                <!-- Gauge Result Display -->
+                <div id="quizResult" class="hidden mt-8 text-center pt-6 border-t border-slate-100">
+                    <p class="text-slate-500 font-semibold text-sm">Bachii Love Meter</p>
+                    <div class="w-full bg-slate-100 h-6 rounded-full overflow-hidden mt-3 p-1 border border-slate-200">
+                        <div id="gaugeBar" class="h-full bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500 rounded-full transition-all duration-1000 w-0"></div>
+                    </div>
+                    <p id="gaugeScoreText" class="text-3xl font-playful font-bold text-pink-600 mt-4">0%</p>
+                    <p id="gaugeComment" class="text-sm font-medium text-slate-600 mt-1"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-pink-100 py-8 text-center text-slate-500 text-sm relative z-10">
+        <p class="font-medium">Made with ❤️ for my favorite Chotii Bachiii.</p>
+        <p class="text-xs text-slate-400 mt-1">Just memories, smiles, and lots of bhaichara. 💖</p>
+    </footer>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox(event)">
+        <div class="bg-white p-4 pt-5 pb-8 rounded-2xl max-w-md w-full shadow-2xl relative transform transition-all" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-3 -right-3 bg-pink-500 text-white w-8 h-8 rounded-full font-bold shadow-md hover:bg-pink-600 transition">✕</button>
+            <div class="aspect-square bg-slate-100 rounded-xl overflow-hidden">
+                <img id="lightboxImg" src="" alt="Memory" class="w-full h-full object-cover">
+            </div>
+            <div class="mt-4 text-center">
+                <h4 id="lightboxTitle" class="font-marker text-2xl text-slate-800"></h4>
+                <p id="lightboxCaption" class="text-sm text-slate-500 mt-1"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Confetti Burst Function
+        function triggerConfetti() {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Trigger confetti on initial page load
+        window.onload = function() {
+            setTimeout(triggerConfetti, 500);
+        };
+
+        // 2. Interactive Flip Cards
+        function flipCard(cardElement) {
+            const inner = cardElement.querySelector('.transform-style-3d');
+            inner.classList.toggle('flipped');
+        }
+
+        // 3. Promise Seal Button
+        function triggerPromise() {
+            // Heart exploding confetti
+            var count = 200;
+            var defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55, colors: ['#f472b6', '#ec4899'] });
+            fire(0.2, { spread: 60, colors: ['#a855f7', '#e879f9'] });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, colors: ['#fde047'] });
+
+            // Show hug badge
+            const badge = document.getElementById('badgeContainer');
+            badge.classList.remove('hidden');
+        }
+
+        // 4. Polaroid Lightbox
+        function openLightbox(imgSrc, title, caption) {
+            document.getElementById('lightboxImg').src = imgSrc;
+            document.getElementById('lightboxTitle').innerText = title;
+            document.getElementById('lightboxCaption').innerText = caption;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // 5. Quiz Calculation
+        function calculateAnnoyance(e) {
+            e.preventDefault();
+            const q1 = parseInt(document.getElementById('q1').value);
+            const q2 = parseInt(document.getElementById('q2').value);
+            const q3 = parseInt(document.getElementById('q3').value);
+
+            const total = Math.min(q1 + q2 + q3, 100);
+
+            const resultDiv = document.getElementById('quizResult');
+            const gaugeBar = document.getElementById('gaugeBar');
+            const scoreText = document.getElementById('gaugeScoreText');
+            const comment = document.getElementById('gaugeComment');
+
+            resultDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                gaugeBar.style.width = total + '%';
+                scoreText.innerText = total + '% Loved';
+
+                if (total >= 80) {
+                    comment.innerText = "💖 Maximum bachii love detected! Sending one giant hug immediately!";
+                } else if (total >= 50) {
+                    comment.innerText = "✨ Classic bachii energy detected. Keep smiling!";
+                } else {
+                    comment.innerText = "🫶 Pure little-sister energy. You are loved so much!";
+                }
+            }, 100);
+        }
+
+        // 6. Interactive Emoji Mouse Cursor Trail
+        const emojis = ['💖', '🤪', '✨', '🍕', '👑', '🌸'];
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.85) { // Control trail density
+                const emoji = document.createElement('span');
+                emoji.className = 'emoji-trail';
+                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = e.clientX + 'px';
+                emoji.style.top = e.clientY + 'px';
+                document.body.appendChild(emoji);
+
+                setTimeout(() => {
+                    emoji.remove();
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
